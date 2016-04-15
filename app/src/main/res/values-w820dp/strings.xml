@@ -1,7 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AstroWeather</string>
-    <string name="menu_localization">Localization</string>
-    <string name="menu_delay">Delay</string>
     <string name="eastMoonText">Wschód księżyca:</string>
     <string name="westMoonText">Zachód księżyca:</string>
     <string name="newMoonText">Najbliższy nów</string>
