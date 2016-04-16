@@ -4,6 +4,7 @@ package com.astroweather.util;
  * Created by mariusz on 16.04.16.
  */
 public class AstroWeather {
+    public static final int NUMBER_OF_TABS = 2;
     public static double DEFAULT_LONGITUDE = 1.1;
     public static double DEFAULT_LATITUDE = 2.2;
     public static int DEFAULT_REFRESH_RATE = 10;

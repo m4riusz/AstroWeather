@@ -16,18 +16,21 @@ import com.astuetz.PagerSlidingTabStrip;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int NUMBER_OF_TABS = 2;
-    private double latitude;
-    private double longitude;
-    private int refreshRate;
+    private double latitude = AstroWeather.DEFAULT_LATITUDE;
+    private double longitude = AstroWeather.DEFAULT_LONGITUDE;
+    private int refreshRate = AstroWeather.DEFAULT_REFRESH_RATE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        determineScreenType();
+    }
+
+    private void determineScreenType() {
         ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         if (pager != null) {
-            pager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), NUMBER_OF_TABS));
+            pager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), AstroWeather.NUMBER_OF_TABS));
             PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
             tabs.setViewPager(pager);
         } else {
