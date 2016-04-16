@@ -67,5 +67,20 @@ public class MainActivity extends AppCompatActivity {
             refreshRate = data.getIntExtra(AstroWeather.REFRESH_RATE, AstroWeather.DEFAULT_REFRESH_RATE);
         }
     }
-    
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putDouble(AstroWeather.LATITUDE, latitude);
+        outState.putDouble(AstroWeather.LONGITUDE, longitude);
+        outState.putInt(AstroWeather.REFRESH_RATE, refreshRate);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        latitude = savedInstanceState.getDouble(AstroWeather.LATITUDE);
+        longitude = savedInstanceState.getDouble(AstroWeather.LONGITUDE);
+        refreshRate = savedInstanceState.getInt(AstroWeather.REFRESH_RATE);
+    }
 }
