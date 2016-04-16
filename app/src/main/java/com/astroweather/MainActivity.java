@@ -1,6 +1,7 @@
 package com.astroweather;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -46,11 +47,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_localization:
+            case R.id.menu_settings:
                 Log.i("WTF", "localization selected: ");
-                return true;
-            case R.id.menu_delay:
-                Log.i("WTF", "delay selected");
+                Intent intent = new Intent(this, OptionActivity.class);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitute", longitude);
+                startActivity(intent);
                 return true;
         }
         return false;

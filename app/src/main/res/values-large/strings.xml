@@ -12,4 +12,7 @@
     <string name="westSunAzimuthText">Zachód słońca (azymut):</string>
     <string name="twilightSunText">Zmierzch:</string>
     <string name="dawnSunText">Świt:</string>
+    <string name="latitudeTexk">Szerokość geograficzna:</string>
+    <string name="longitudeText">Długość geograficzna:</string>
+    <string name="refreshRateText">Częstotliwość odświeżania:</string>
 </resources>
