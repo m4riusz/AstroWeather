@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.astroweather.fragments.MoonFragment;
 import com.astroweather.fragments.SunFragment;
+import com.astroweather.util.AstroWeather;
 import com.astuetz.PagerSlidingTabStrip;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,12 +19,12 @@ public class MainActivity extends AppCompatActivity {
     public static final int NUMBER_OF_TABS = 2;
     private double latitude;
     private double longitude;
+    private int refreshRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         if (pager != null) {
             pager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), NUMBER_OF_TABS));
@@ -48,13 +48,24 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_settings:
-                Log.i("WTF", "localization selected: ");
                 Intent intent = new Intent(this, OptionActivity.class);
-                intent.putExtra("latitude", latitude);
-                intent.putExtra("longitute", longitude);
-                startActivity(intent);
+                intent.putExtra(AstroWeather.LONGITUDE, longitude);
+                intent.putExtra(AstroWeather.LATITUDE, latitude);
+                intent.putExtra(AstroWeather.REFRESH_RATE, refreshRate);
+                startActivityForResult(intent, AstroWeather.REQUEST_CODE);
                 return true;
         }
         return false;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null && resultCode == AstroWeather.REQUEST_CODE) {
+            latitude = data.getDoubleExtra(AstroWeather.LATITUDE, AstroWeather.DEFAULT_LATITUDE);
+            longitude = data.getDoubleExtra(AstroWeather.LONGITUDE, AstroWeather.DEFAULT_LONGITUDE);
+            refreshRate = data.getIntExtra(AstroWeather.REFRESH_RATE, AstroWeather.DEFAULT_REFRESH_RATE);
+        }
+    }
+    
 }
