@@ -12,4 +12,5 @@ public class AstroWeather {
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
     public static final String REFRESH_RATE = "refreshRate";
+    public static final String TIME_FORMAT = "dd MMMM yyyy HH:mm:ss";
 }

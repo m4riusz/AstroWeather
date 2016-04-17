@@ -3,49 +3,59 @@ package com.astroweather;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.astroweather.fragments.MoonFragment;
 import com.astroweather.fragments.SunFragment;
 import com.astroweather.util.AstroWeather;
 import com.astuetz.PagerSlidingTabStrip;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class MainActivity extends AppCompatActivity {
 
     private double latitude = AstroWeather.DEFAULT_LATITUDE;
     private double longitude = AstroWeather.DEFAULT_LONGITUDE;
     private int refreshRate = AstroWeather.DEFAULT_REFRESH_RATE;
+    private GregorianCalendar calendar = new GregorianCalendar();
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat(AstroWeather.TIME_FORMAT);
+    private TextView textView;
+
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            initTime();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            initTime();
-        }
+        textView = (TextView) findViewById(R.id.timeValue);
+        runnable.run();
         determineScreenType();
     }
 
-    private void initTime() {
-        //TODO time
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handler.removeCallbacks(runnable);
+        initTime();
     }
 
-    private void determineScreenType() {
-        ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
-        if (pager != null) {
-            pager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), AstroWeather.NUMBER_OF_TABS));
-            PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-            tabs.setViewPager(pager);
-        } else {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.sun_fragment, new SunFragment());
-            fragmentTransaction.add(R.id.moon_fragment, new MoonFragment());
-            fragmentTransaction.commit();
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
     }
 
     @Override
@@ -92,5 +102,25 @@ public class MainActivity extends AppCompatActivity {
         latitude = savedInstanceState.getDouble(AstroWeather.LATITUDE);
         longitude = savedInstanceState.getDouble(AstroWeather.LONGITUDE);
         refreshRate = savedInstanceState.getInt(AstroWeather.REFRESH_RATE);
+    }
+
+    private void initTime() {
+        textView.setText(dateFormatter.format(calendar.getTime()));
+        calendar.add(Calendar.SECOND, 1);
+        handler.postDelayed(runnable, 1000);
+    }
+
+    private void determineScreenType() {
+        ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
+        if (pager != null) {
+            pager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), AstroWeather.NUMBER_OF_TABS));
+            PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+            tabs.setViewPager(pager);
+        } else {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.sun_fragment, new SunFragment());
+            fragmentTransaction.add(R.id.moon_fragment, new MoonFragment());
+            fragmentTransaction.commit();
+        }
     }
 }
