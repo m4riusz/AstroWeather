@@ -24,7 +24,7 @@ public class OptionActivity extends AppCompatActivity {
     private void initializeParams() {
         double longitude = getIntent().getDoubleExtra(AstroWeather.LONGITUDE, AstroWeather.DEFAULT_LONGITUDE);
         double latitude = getIntent().getDoubleExtra(AstroWeather.LATITUDE, AstroWeather.DEFAULT_LATITUDE);
-        int refreshRate = getIntent().getIntExtra(AstroWeather.REFRESH_RATE, AstroWeather.DEFAULT_REFRESH_RATE);
+        int refreshRate = getIntent().getIntExtra(AstroWeather.REFRESH_RATE_TEXT, AstroWeather.DEFAULT_REFRESH_RATE);
 
         longitudeValue = (EditText) findViewById(R.id.longitudeValue);
         latitudeValue = (EditText) findViewById(R.id.latitudeValue);
@@ -39,7 +39,7 @@ public class OptionActivity extends AppCompatActivity {
         Intent intentResult = new Intent();
         intentResult.putExtra(AstroWeather.LONGITUDE, Double.valueOf(longitudeValue.getText().toString()));
         intentResult.putExtra(AstroWeather.LATITUDE, Double.valueOf(latitudeValue.getText().toString()));
-        intentResult.putExtra(AstroWeather.REFRESH_RATE, Integer.valueOf(refreshRateValue.getText().toString()));
+        intentResult.putExtra(AstroWeather.REFRESH_RATE_TEXT, Integer.valueOf(refreshRateValue.getText().toString()));
         setResult(AstroWeather.REQUEST_CODE, intentResult);
         finish();
     }

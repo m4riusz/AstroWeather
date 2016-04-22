@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, OptionActivity.class);
                 intent.putExtra(AstroWeather.LONGITUDE, longitude);
                 intent.putExtra(AstroWeather.LATITUDE, latitude);
-                intent.putExtra(AstroWeather.REFRESH_RATE, refreshRate);
+                intent.putExtra(AstroWeather.REFRESH_RATE_TEXT, refreshRate);
                 startActivityForResult(intent, AstroWeather.REQUEST_CODE);
                 return true;
         }
@@ -84,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
         if (data != null && resultCode == AstroWeather.REQUEST_CODE) {
             latitude = data.getDoubleExtra(AstroWeather.LATITUDE, AstroWeather.DEFAULT_LATITUDE);
             longitude = data.getDoubleExtra(AstroWeather.LONGITUDE, AstroWeather.DEFAULT_LONGITUDE);
-            refreshRate = data.getIntExtra(AstroWeather.REFRESH_RATE, AstroWeather.DEFAULT_REFRESH_RATE);
+            refreshRate = data.getIntExtra(AstroWeather.REFRESH_RATE_TEXT, AstroWeather.DEFAULT_REFRESH_RATE);
+            AstroWeather.REFRESH_RATE = refreshRate;
+            AstroWeather.location.setLatitude(latitude);
+            AstroWeather.location.setLongitude(longitude);
         }
     }
 
@@ -93,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putDouble(AstroWeather.LATITUDE, latitude);
         outState.putDouble(AstroWeather.LONGITUDE, longitude);
-        outState.putInt(AstroWeather.REFRESH_RATE, refreshRate);
+        outState.putInt(AstroWeather.REFRESH_RATE_TEXT, refreshRate);
+        outState.remove("android:support:fragments");
     }
 
     @Override
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         latitude = savedInstanceState.getDouble(AstroWeather.LATITUDE);
         longitude = savedInstanceState.getDouble(AstroWeather.LONGITUDE);
-        refreshRate = savedInstanceState.getInt(AstroWeather.REFRESH_RATE);
+        refreshRate = savedInstanceState.getInt(AstroWeather.REFRESH_RATE_TEXT);
     }
 
     private void initTime() {
@@ -118,8 +122,9 @@ public class MainActivity extends AppCompatActivity {
             tabs.setViewPager(pager);
         } else {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.sun_fragment, new SunFragment());
-            fragmentTransaction.add(R.id.moon_fragment, new MoonFragment());
+
+            fragmentTransaction.replace(R.id.sun_fragment, new SunFragment());
+            fragmentTransaction.replace(R.id.moon_fragment, new MoonFragment());
             fragmentTransaction.commit();
         }
     }
