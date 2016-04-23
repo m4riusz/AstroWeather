@@ -25,18 +25,16 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/linearLayout3">
 
-        <fragment
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.astroweather.fragments.SunFragment"
-            android:id="@+id/sun_fragment"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:id="@+id/sun_fragment"></FrameLayout>
 
-        <fragment
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.astroweather.fragments.MoonFragment"
-            android:id="@+id/moon_fragment"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:id="@+id/moon_fragment"></FrameLayout>
     </LinearLayout>
 </RelativeLayout>
