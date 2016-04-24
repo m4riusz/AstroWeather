@@ -17,7 +17,8 @@ import com.astroweather.util.AstroWeather;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Created by mariusz on 11.04.16.
@@ -49,8 +50,15 @@ public class MoonFragment extends Fragment {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(AstroWeather.TIME_FORMAT);
         TextView time = (TextView) getActivity().findViewById(R.id.timeValue);
         if (time != null) {
-            Date date = simpleDateFormat.parse(String.valueOf(time.getText()));
-            AstroDateTime astroDateTime = new AstroDateTime(date.getYear(), date.getMonth(), date.getDay(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getTimezoneOffset(), false);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeZone(TimeZone.getDefault());
+            calendar.setTime(simpleDateFormat.parse(String.valueOf(time.getText())));
+            AstroDateTime astroDateTime =
+                    new AstroDateTime(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY),
+                            calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND),
+                            calendar.get(Calendar.ZONE_OFFSET) / AstroWeather.ZONE_OFFSET_DIVISOR, false);
+
             AstroCalculator astroCalculator = new AstroCalculator(astroDateTime, AstroWeather.location);
 
             initTextViews();
