@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.astroweather.fragments.MoonFragment;
 import com.astroweather.fragments.SunFragment;
 import com.astroweather.util.AstroWeather;
-import com.astuetz.PagerSlidingTabStrip;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -118,11 +117,8 @@ public class MainActivity extends AppCompatActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.viewPager);
         if (pager != null) {
             pager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), AstroWeather.NUMBER_OF_TABS));
-            PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-            tabs.setViewPager(pager);
         } else {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
             fragmentTransaction.replace(R.id.sun_fragment, new SunFragment());
             fragmentTransaction.replace(R.id.moon_fragment, new MoonFragment());
             fragmentTransaction.commit();
