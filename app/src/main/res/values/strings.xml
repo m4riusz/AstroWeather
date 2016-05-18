@@ -18,4 +18,5 @@
     <string name="longitudeText">Długość geograficzna:</string>
     <string name="refreshRateText">Częstotliwość odświeżania:</string>
     <string name="sun">SUN</string>
+    <string name="moon">MOON</string>
 </resources>
