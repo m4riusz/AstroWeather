@@ -41,6 +41,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/moon_fragment"></FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/weather_fragment"
+            android:layout_weight="1"></FrameLayout>
     </LinearLayout>
 
 </RelativeLayout>
