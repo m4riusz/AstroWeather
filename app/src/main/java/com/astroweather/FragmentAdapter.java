@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.astroweather.fragments.MoonFragment;
 import com.astroweather.fragments.SunFragment;
+import com.astroweather.fragments.WeatherFragment;
 
 /**
  * Created by mariusz on 11.04.16.
@@ -13,7 +14,7 @@ import com.astroweather.fragments.SunFragment;
 public class FragmentAdapter extends FragmentStatePagerAdapter {
 
     private int numberOfTabs;
-    private String titles[] = {"Sun", "Moon"};
+    private String titles[] = {"Sun", "Moon", "Weather"};
 
     public FragmentAdapter(FragmentManager fm, int numberOfTabs) {
         super(fm);
@@ -27,6 +28,8 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
                 return new SunFragment();
             case 1:
                 return new MoonFragment();
+            case 2:
+                return new WeatherFragment();
         }
         return null;
     }

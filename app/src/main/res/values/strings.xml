@@ -17,4 +17,5 @@
     <string name="latitudeTexk">Szerokość geograficzna:</string>
     <string name="longitudeText">Długość geograficzna:</string>
     <string name="refreshRateText">Częstotliwość odświeżania:</string>
+    <string name="sun">SUN</string>
 </resources>

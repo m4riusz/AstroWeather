@@ -23,24 +23,38 @@
             android:textColor="#ffffff" />
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/fragmentContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_below="@+id/linearLayout2"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/sun_fragment"></FrameLayout>
+        <LinearLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/moon_fragment"></FrameLayout>
-    </LinearLayout>
+            <FrameLayout
+                android:id="@+id/sun_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <FrameLayout
+                android:id="@+id/moon_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <FrameLayout
+                android:id="@+id/weather_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

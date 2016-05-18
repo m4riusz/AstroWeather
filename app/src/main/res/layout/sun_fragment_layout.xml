@@ -1,177 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sun_background">
 
-    <GridLayout
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/sun"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="2"
-        android:rowCount="7">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="SUN"
-            android:id="@+id/textView5"
-            android:layout_column="0"
-            android:layout_row="0"
-            android:layout_columnSpan="2"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/eastSunTimeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_columnWeight="2"
-            android:layout_row="1"
-            android:layout_rowWeight="1"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/eastSunAzimuthLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_columnWeight="1"
-            android:layout_row="2"
-            android:layout_rowWeight="1"
-            android:text="@string/eastSunAzimuthText"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
         <TextView
             android:id="@+id/eastSunTimeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:layout_row="1"
             android:layout_rowWeight="1"
             android:text="@string/eastSunTimeText"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/eastSunTimeValue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_columnWeight="2"
+            android:layout_rowWeight="1"
+            android:text="Large Text"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:id="@+id/eastSunAzimuthLabel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:text="@string/eastSunAzimuthText"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/eastSunAzimuthValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="2"
-            android:layout_row="2"
             android:layout_rowWeight="1"
             android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
         <TextView
             android:id="@+id/westSunTimeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:layout_row="3"
             android:layout_rowWeight="1"
             android:text="@string/westSunTimeText"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/westSunTimeValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="2"
-            android:layout_row="3"
             android:layout_rowWeight="1"
             android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
 
         <TextView
             android:id="@+id/westSunAzimuthLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:layout_row="4"
             android:layout_rowWeight="1"
             android:text="@string/westSunAzimuthText"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
+
 
         <TextView
             android:id="@+id/westSunAzimuthValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="2"
-            android:layout_row="4"
             android:layout_rowWeight="1"
             android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
         <TextView
             android:id="@+id/twilightSunLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:layout_row="5"
             android:layout_rowWeight="1"
             android:text="@string/twilightSunText"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/twilightSunValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="2"
-            android:layout_row="5"
             android:layout_rowWeight="1"
             android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
         <TextView
             android:id="@+id/dawnSunLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="1"
-            android:layout_row="6"
             android:layout_rowWeight="1"
             android:text="@string/dawnSunText"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/dawnSunValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_columnWeight="2"
-            android:layout_row="6"
             android:layout_rowWeight="1"
             android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="10sp" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_weight="1" />
+    </LinearLayout>
 
-    </GridLayout>
-</RelativeLayout>
+</LinearLayout>
+

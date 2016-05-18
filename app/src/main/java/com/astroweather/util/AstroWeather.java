@@ -7,7 +7,7 @@ import com.astrocalculator.AstroCalculator;
  */
 public class AstroWeather {
     public static int ZONE_OFFSET_DIVISOR = 60 * 60 * 1000;
-    public static final int NUMBER_OF_TABS = 2;
+    public static final int NUMBER_OF_TABS =3;
     public static double DEFAULT_LONGITUDE = 1.1;
     public static double DEFAULT_LATITUDE = 2.2;
     public static AstroCalculator.Location location = new AstroCalculator.Location(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);

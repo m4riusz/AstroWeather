@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.astroweather.fragments.MoonFragment;
 import com.astroweather.fragments.SunFragment;
+import com.astroweather.fragments.WeatherFragment;
 import com.astroweather.util.AstroWeather;
 
 import java.text.SimpleDateFormat;
@@ -121,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.sun_fragment, new SunFragment());
             fragmentTransaction.replace(R.id.moon_fragment, new MoonFragment());
+            fragmentTransaction.replace(R.id.weather_fragment, new WeatherFragment());
             fragmentTransaction.commit();
+
         }
     }
 }
