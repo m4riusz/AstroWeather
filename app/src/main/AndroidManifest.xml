@@ -16,6 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".OptionActivity"></activity>
+        <activity android:name=".LocalizationActivity"></activity>
     </application>
 
 </manifest>
