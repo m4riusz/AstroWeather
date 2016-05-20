@@ -40,7 +40,7 @@ public class OptionActivity extends AppCompatActivity {
         intentResult.putExtra(AstroWeather.LONGITUDE, Double.valueOf(longitudeValue.getText().toString()));
         intentResult.putExtra(AstroWeather.LATITUDE, Double.valueOf(latitudeValue.getText().toString()));
         intentResult.putExtra(AstroWeather.REFRESH_RATE_TEXT, Integer.valueOf(refreshRateValue.getText().toString()));
-        setResult(AstroWeather.REQUEST_CODE, intentResult);
+        setResult(AstroWeather.SETTINGS_REQUEST_CODE, intentResult);
         finish();
     }
 }

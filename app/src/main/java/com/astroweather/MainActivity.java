@@ -14,9 +14,11 @@ import android.widget.TextView;
 import com.astroweather.fragments.MoonFragment;
 import com.astroweather.fragments.SunFragment;
 import com.astroweather.fragments.WeatherFragment;
+import com.astroweather.model.Localization;
 import com.astroweather.util.AstroWeather;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private GregorianCalendar calendar = new GregorianCalendar();
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(AstroWeather.TIME_FORMAT);
     private TextView textView;
-
+    private ArrayList<Localization> favouriteLocalizations = new ArrayList<>();
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         public void run() {
@@ -72,8 +74,12 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(AstroWeather.LONGITUDE, longitude);
                 intent.putExtra(AstroWeather.LATITUDE, latitude);
                 intent.putExtra(AstroWeather.REFRESH_RATE_TEXT, refreshRate);
-                startActivityForResult(intent, AstroWeather.REQUEST_CODE);
+                startActivityForResult(intent, AstroWeather.SETTINGS_REQUEST_CODE);
                 return true;
+            case R.id.menu_localizations:
+                Intent localizationIntent = new Intent(this, LocalizationActivity.class);
+                localizationIntent.putParcelableArrayListExtra(AstroWeather.FAVOURITE_LOCALIZATIONS, favouriteLocalizations);
+                startActivityForResult(localizationIntent, AstroWeather.LOCALIZATION_REQUEST_CODE);
         }
         return false;
     }
@@ -81,14 +87,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null && resultCode == AstroWeather.REQUEST_CODE) {
-            latitude = data.getDoubleExtra(AstroWeather.LATITUDE, AstroWeather.DEFAULT_LATITUDE);
-            longitude = data.getDoubleExtra(AstroWeather.LONGITUDE, AstroWeather.DEFAULT_LONGITUDE);
-            refreshRate = data.getIntExtra(AstroWeather.REFRESH_RATE_TEXT, AstroWeather.DEFAULT_REFRESH_RATE);
-            AstroWeather.REFRESH_RATE = refreshRate;
-            AstroWeather.location.setLatitude(latitude);
-            AstroWeather.location.setLongitude(longitude);
+        if (data != null) {
+            switch (resultCode) {
+                case AstroWeather.SETTINGS_REQUEST_CODE:
+                    latitude = data.getDoubleExtra(AstroWeather.LATITUDE, AstroWeather.DEFAULT_LATITUDE);
+                    longitude = data.getDoubleExtra(AstroWeather.LONGITUDE, AstroWeather.DEFAULT_LONGITUDE);
+                    refreshRate = data.getIntExtra(AstroWeather.REFRESH_RATE_TEXT, AstroWeather.DEFAULT_REFRESH_RATE);
+                    AstroWeather.REFRESH_RATE = refreshRate;
+                    AstroWeather.location.setLatitude(latitude);
+                    AstroWeather.location.setLongitude(longitude);
+                    break;
+                case AstroWeather.LOCALIZATION_REQUEST_CODE:
+                    favouriteLocalizations = data.getParcelableArrayListExtra(AstroWeather.FAVOURITE_LOCALIZATIONS);
+                    break;
+            }
         }
+
     }
 
     @Override
@@ -97,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putDouble(AstroWeather.LATITUDE, latitude);
         outState.putDouble(AstroWeather.LONGITUDE, longitude);
         outState.putInt(AstroWeather.REFRESH_RATE_TEXT, refreshRate);
+        outState.putParcelableArrayList(AstroWeather.FAVOURITE_LOCALIZATIONS, favouriteLocalizations);
         outState.remove("android:support:fragments");
     }
 
@@ -106,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         latitude = savedInstanceState.getDouble(AstroWeather.LATITUDE);
         longitude = savedInstanceState.getDouble(AstroWeather.LONGITUDE);
         refreshRate = savedInstanceState.getInt(AstroWeather.REFRESH_RATE_TEXT);
+        favouriteLocalizations = savedInstanceState.getParcelableArrayList(AstroWeather.FAVOURITE_LOCALIZATIONS);
     }
 
     private void initTime() {

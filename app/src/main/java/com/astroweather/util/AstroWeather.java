@@ -13,9 +13,11 @@ public class AstroWeather {
     public static AstroCalculator.Location location = new AstroCalculator.Location(DEFAULT_LATITUDE, DEFAULT_LONGITUDE);
     public static int DEFAULT_REFRESH_RATE = 1;
     public static int REFRESH_RATE = DEFAULT_REFRESH_RATE;
-    public static int REQUEST_CODE = 1;
+    public static final int SETTINGS_REQUEST_CODE = 1;
+    public static final int LOCALIZATION_REQUEST_CODE = 2;
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
     public static final String REFRESH_RATE_TEXT = "refreshRate";
     public static final String TIME_FORMAT = "dd MMMM yyyy HH:mm:ss";
+    public static final String FAVOURITE_LOCALIZATIONS = "favouriteLocalizations";
 }
