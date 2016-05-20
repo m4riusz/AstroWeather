@@ -15,8 +15,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OptionActivity"></activity>
-        <activity android:name=".LocalizationActivity"></activity>
+        <activity android:name=".OptionActivity" />
+        <activity
+            android:name=".LocalizationActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
