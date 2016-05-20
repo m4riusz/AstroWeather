@@ -19,4 +19,5 @@
     <string name="refreshRateText">Częstotliwość odświeżania:</string>
     <string name="sun">SUN</string>
     <string name="moon">MOON</string>
+    <string name="favourite_localizations">Favourite localizations</string>
 </resources>
