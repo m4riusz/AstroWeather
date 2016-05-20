@@ -24,7 +24,7 @@
     <string name="name">Nazwa:</string>
     <string name="add">Dodaj</string>
     <string name="delete">Usuń</string>
-    <string name="wrong_data">Popraw dane!</string>
+    <string name="add_localization_fail">Popraw dane!</string>
     <string name="weather">POGODA</string>
     <string name="temperature">Temperatura:</string>
     <string name="humidity">Wilgotność:</string>
@@ -32,4 +32,5 @@
     <string name="wind_speed">Prędkość wiatru:</string>
     <string name="wind_direction">Kierunek wiatru:</string>
     <string name="cloudness">Zachmurzenie:</string>
+    <string name="add_localization_success">Dodano!</string>
 </resources>
