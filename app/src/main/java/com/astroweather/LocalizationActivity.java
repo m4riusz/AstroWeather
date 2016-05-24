@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.astroweather.model.Localization;
+import com.astroweather.model.Weather;
 import com.astroweather.util.AstroWeather;
 
 import java.util.ArrayList;
@@ -42,8 +43,8 @@ public class LocalizationActivity extends AppCompatActivity {
             String localizationName = String.valueOf(((EditText) findViewById(R.id.localizationNameValue)).getText());
             double longitudeVal = Double.parseDouble(((EditText) findViewById(R.id.localizationLongitudeValue)).getText().toString());
             double latitudeVal = Double.parseDouble(((EditText) findViewById(R.id.localizationLatitudeValue)).getText().toString());
-
-            favouriteLocalizations.add(new Localization(localizationName, longitudeVal, latitudeVal));
+            //TODO add localization checker and weather list
+            favouriteLocalizations.add(new Localization(localizationName, longitudeVal, latitudeVal, new ArrayList<Weather>()));
             adapter.notifyDataSetChanged();
             Toast.makeText(LocalizationActivity.this, R.string.add_localization_success, Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {

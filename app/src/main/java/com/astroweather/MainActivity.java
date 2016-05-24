@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case AstroWeather.LOCALIZATION_REQUEST_CODE:
                     favouriteLocalizations = data.getParcelableArrayListExtra(AstroWeather.FAVOURITE_LOCALIZATIONS);
+                    AstroWeather.localizationList = favouriteLocalizations;
                     break;
             }
         }
