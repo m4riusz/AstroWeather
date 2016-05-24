@@ -3,12 +3,13 @@ package com.astroweather.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by mariusz on 24.05.16.
  */
-public class Weather implements Parcelable {
+public class Weather implements Parcelable,Serializable {
     private Date date;
     private int temperature;
     private float humidity;

@@ -23,12 +23,25 @@ public class Localization implements Parcelable {
         this.weathers = weathers;
     }
 
+
     protected Localization(Parcel in) {
         name = in.readString();
         longitude = in.readDouble();
         latitude = in.readDouble();
-        in.readList(weathers, null);
+        weathers = in.createTypedArrayList(Weather.CREATOR);
     }
+
+    public static final Creator<Localization> CREATOR = new Creator<Localization>() {
+        @Override
+        public Localization createFromParcel(Parcel in) {
+            return new Localization(in);
+        }
+
+        @Override
+        public Localization[] newArray(int size) {
+            return new Localization[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -54,6 +67,14 @@ public class Localization implements Parcelable {
         this.latitude = latitude;
     }
 
+    public List<Weather> getWeathers() {
+        return weathers;
+    }
+
+    public void setWeathers(List<Weather> weathers) {
+        this.weathers = weathers;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -67,15 +88,4 @@ public class Localization implements Parcelable {
         parcel.writeList(weathers);
     }
 
-    public static final Creator<Localization> CREATOR = new Creator<Localization>() {
-        @Override
-        public Localization createFromParcel(Parcel in) {
-            return new Localization(in);
-        }
-
-        @Override
-        public Localization[] newArray(int size) {
-            return new Localization[size];
-        }
-    };
 }
