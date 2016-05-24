@@ -3,6 +3,8 @@ package com.astroweather.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Created by mariusz on 20.05.16.
  */
@@ -12,17 +14,20 @@ public class Localization implements Parcelable {
     private String name;
     private double longitude;
     private double latitude;
+    private List<Weather> weathers;
 
-    public Localization(String name, double longitude, double latitude) {
+    public Localization(String name, double longitude, double latitude, List<Weather> weathers) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
+        this.weathers = weathers;
     }
 
     protected Localization(Parcel in) {
         name = in.readString();
         longitude = in.readDouble();
         latitude = in.readDouble();
+        in.readList(weathers, null);
     }
 
     public String getName() {
@@ -59,6 +64,7 @@ public class Localization implements Parcelable {
         parcel.writeString(name);
         parcel.writeDouble(longitude);
         parcel.writeDouble(latitude);
+        parcel.writeList(weathers);
     }
 
     public static final Creator<Localization> CREATOR = new Creator<Localization>() {
