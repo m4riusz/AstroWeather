@@ -1,6 +1,10 @@
 package com.astroweather.util;
 
 import com.astrocalculator.AstroCalculator;
+import com.astroweather.model.Localization;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mariusz on 16.04.16.
@@ -20,4 +24,5 @@ public class AstroWeather {
     public static final String REFRESH_RATE_TEXT = "refreshRate";
     public static final String TIME_FORMAT = "dd MMMM yyyy HH:mm:ss";
     public static final String FAVOURITE_LOCALIZATIONS = "favouriteLocalizations";
+    public static List<Localization> localizationList = new ArrayList<>();
 }
