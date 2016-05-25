@@ -11,14 +11,14 @@ import java.util.Date;
  */
 public class Weather implements Parcelable,Serializable {
     private Date date;
-    private int temperature;
+    private float temperature;
     private float humidity;
     private float pressure;
     private float windSpeed;
     private float windDirection;
     private float clouds;
 
-    public Weather(Date date, int temperature, float humidity, float pressure, float windSpeed, float windDirection, float clouds) {
+    public Weather(Date date, float temperature, float humidity, float pressure, float windSpeed, float windDirection, float clouds) {
         this.date = date;
         this.temperature = temperature;
         this.humidity = humidity;
@@ -28,54 +28,12 @@ public class Weather implements Parcelable,Serializable {
         this.clouds = clouds;
     }
 
-    protected Weather(Parcel in) {
-        date = (Date) in.readSerializable();
-        temperature = in.readInt();
-        humidity = in.readFloat();
-        pressure = in.readFloat();
-        windSpeed = in.readFloat();
-        windDirection = in.readFloat();
-        clouds = in.readFloat();
+    public float getClouds() {
+        return clouds;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public int getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(int temperature) {
-        this.temperature = temperature;
-    }
-
-    public float getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(float humidity) {
-        this.humidity = humidity;
-    }
-
-    public float getPressure() {
-        return pressure;
-    }
-
-    public void setPressure(float pressure) {
-        this.pressure = pressure;
-    }
-
-    public float getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(float windSpeed) {
-        this.windSpeed = windSpeed;
+    public void setClouds(float clouds) {
+        this.clouds = clouds;
     }
 
     public float getWindDirection() {
@@ -86,12 +44,54 @@ public class Weather implements Parcelable,Serializable {
         this.windDirection = windDirection;
     }
 
-    public float getClouds() {
-        return clouds;
+    public float getWindSpeed() {
+        return windSpeed;
     }
 
-    public void setClouds(float clouds) {
-        this.clouds = clouds;
+    public void setWindSpeed(float windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public float getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(float pressure) {
+        this.pressure = pressure;
+    }
+
+    public float getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(float humidity) {
+        this.humidity = humidity;
+    }
+
+    public float getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(float temperature) {
+        this.temperature = temperature;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    protected Weather(Parcel in) {
+        date = new Date(in.readLong());
+        temperature = in.readFloat();
+        humidity = in.readFloat();
+        pressure = in.readFloat();
+        windSpeed = in.readFloat();
+        windDirection = in.readFloat();
+        clouds = in.readFloat();
     }
 
     public static final Creator<Weather> CREATOR = new Creator<Weather>() {
@@ -113,12 +113,25 @@ public class Weather implements Parcelable,Serializable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeSerializable(date);
-        parcel.writeInt(temperature);
+        parcel.writeLong(date.getTime());
+        parcel.writeFloat(temperature);
         parcel.writeFloat(humidity);
         parcel.writeFloat(pressure);
         parcel.writeFloat(windSpeed);
         parcel.writeFloat(windDirection);
         parcel.writeFloat(clouds);
+    }
+
+    @Override
+    public String toString() {
+        return "Weather{" +
+                "date=" + date +
+                ", temperature=" + temperature +
+                ", humidity=" + humidity +
+                ", pressure=" + pressure +
+                ", windSpeed=" + windSpeed +
+                ", windDirection=" + windDirection +
+                ", clouds=" + clouds +
+                '}';
     }
 }
