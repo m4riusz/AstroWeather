@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.astroweather.adapters.LocalizationAdapter;
 import com.astroweather.R;
+import com.astroweather.adapters.LocalizationAdapter;
 import com.astroweather.adapters.WeatherAdapter;
 import com.astroweather.model.Localization;
 import com.astroweather.model.Weather;
@@ -39,14 +39,12 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
     private Spinner weatherSpinner;
     private WeatherAdapter dateSpinnerAdapter;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.weather_fragment_layout, container, false);
         upButton = (Button) inflate.findViewById(R.id.updateWeatherButton);
         upButton.setOnClickListener(this);
-
         initSpinnersAndAdapters(inflate);
         return inflate;
     }
@@ -64,7 +62,10 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 List<Weather> weatherList = localizationAdapter.getItem(i).getWeathers();
-                //TODO replace content of weather spinner and update view
+                for (int j = 0; j < weatherList.size() - 1; j++) {
+                    dateSpinnerAdapter = new WeatherAdapter(getContext(), android.R.layout.simple_spinner_item, weatherList);
+                    weatherSpinner.setAdapter(dateSpinnerAdapter);
+                }
             }
 
             @Override
@@ -91,7 +92,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
     }
 
     public void updateTextViews(Weather weather) {
-        temperatureTextView.setText(weather.getTemperature());
+        temperatureTextView.setText((int) weather.getTemperature());
         humidityTextView.setText((int) weather.getHumidity());
         pressureTextView.setText((int) weather.getPressure());
         windSpeedTextView.setText((int) weather.getWindSpeed());
@@ -127,5 +128,6 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
         localizationAdapter = new LocalizationAdapter(getContext(), android.R.layout.simple_spinner_item, AstroWeather.localizationList);
         localizationSpinner.setAdapter(localizationAdapter);
     }
+
 
 }
