@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.astroweather.adapters.FragmentAdapter;
 import com.astroweather.fragments.MoonFragment;
 import com.astroweather.fragments.SunFragment;
 import com.astroweather.fragments.WeatherFragment;

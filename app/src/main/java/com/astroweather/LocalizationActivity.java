@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.astroweather.adapters.LocalizationAdapter;
 import com.astroweather.model.Localization;
 import com.astroweather.model.Weather;
 import com.astroweather.util.AstroWeather;

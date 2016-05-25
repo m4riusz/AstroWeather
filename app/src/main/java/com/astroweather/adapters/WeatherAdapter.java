@@ -1,4 +1,4 @@
-package com.astroweather;
+package com.astroweather.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -17,6 +17,7 @@ import java.util.List;
  * Created by mariusz on 24.05.16.
  */
 public class WeatherAdapter extends ArrayAdapter<Weather> {
+    public static final String DATE_FORMAT = "dd:MM:yyyy";
     private final Context context;
     private final List<Weather> weatherList;
 
@@ -36,7 +37,7 @@ public class WeatherAdapter extends ArrayAdapter<Weather> {
     }
 
     private void prepareLabel(int position, TextView label) {
-        DateFormat df = new SimpleDateFormat("dd:MM:yyyy");
+        DateFormat df = new SimpleDateFormat(DATE_FORMAT);
         String name = df.format(weatherList.get(position).getDate());
         label.setText(formatToText(name));
     }

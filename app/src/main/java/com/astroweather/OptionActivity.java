@@ -30,9 +30,9 @@ public class OptionActivity extends AppCompatActivity {
         latitudeValue = (EditText) findViewById(R.id.latitudeValue);
         refreshRateValue = (EditText) findViewById(R.id.refreshRateValue);
 
-        longitudeValue.setText("" + longitude);
-        latitudeValue.setText("" + latitude);
-        refreshRateValue.setText("" + refreshRate);
+        longitudeValue.setText(String.format("%s", longitude));
+        latitudeValue.setText(String.format("%s", latitude));
+        refreshRateValue.setText(refreshRate);
     }
 
     public void saveAndExit(View view) {
