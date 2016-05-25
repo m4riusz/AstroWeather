@@ -36,7 +36,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
     private Button upButton;
     private LocalizationAdapter localizationAdapter;
     private Spinner localizationSpinner;
-    private Spinner weatherSpinner;
+    private Spinner dateSpinner;
     private WeatherAdapter dateSpinnerAdapter;
 
     @Nullable
@@ -45,35 +45,21 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
         View inflate = inflater.inflate(R.layout.weather_fragment_layout, container, false);
         upButton = (Button) inflate.findViewById(R.id.updateWeatherButton);
         upButton.setOnClickListener(this);
+        initTextViews();
         initSpinnersAndAdapters(inflate);
         return inflate;
     }
 
     private void initSpinnersAndAdapters(View inflate) {
-        weatherSpinner = (Spinner) inflate.findViewById(R.id.daySpinner);
+        dateSpinner = (Spinner) inflate.findViewById(R.id.daySpinner);
         dateSpinnerAdapter = new WeatherAdapter(getContext(), android.R.layout.simple_spinner_item, new ArrayList<Weather>());
-        weatherSpinner.setAdapter(dateSpinnerAdapter);
+        dateSpinner.setAdapter(dateSpinnerAdapter);
+        setListenerOnDateSpinner();
 
         localizationSpinner = (Spinner) inflate.findViewById(R.id.localizationSpinner);
         localizationAdapter = new LocalizationAdapter(getContext(), android.R.layout.simple_spinner_item, AstroWeather.localizationList);
         localizationSpinner.setAdapter(localizationAdapter);
-
-        localizationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                List<Weather> weatherList = localizationAdapter.getItem(i).getWeathers();
-                for (int j = 0; j < weatherList.size() - 1; j++) {
-                    dateSpinnerAdapter = new WeatherAdapter(getContext(), android.R.layout.simple_spinner_item, weatherList);
-                    weatherSpinner.setAdapter(dateSpinnerAdapter);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
+        setListenerOnLocalizationSpinner();
     }
 
     private Localization getSelectedLocalization() {
@@ -81,23 +67,16 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
     }
 
     private Weather getSelectedWeather() {
-        return ((Weather) weatherSpinner.getSelectedItem());
-    }
-
-    public void update() {
-        initTextViews();
-        if (isTextViewInitialized() && getSelectedLocalization() != null && getSelectedWeather() != null) {
-            updateTextViews(getSelectedWeather());
-        }
+        return ((Weather) dateSpinner.getSelectedItem());
     }
 
     public void updateTextViews(Weather weather) {
-        temperatureTextView.setText((int) weather.getTemperature());
-        humidityTextView.setText((int) weather.getHumidity());
-        pressureTextView.setText((int) weather.getPressure());
-        windSpeedTextView.setText((int) weather.getWindSpeed());
-        windDirectionTextView.setText((int) weather.getWindDirection());
-        cloudsTextView.setText((int) weather.getClouds());
+        temperatureTextView.setText(String.format("%s", weather.getTemperature()));
+        humidityTextView.setText(String.format("%s", weather.getHumidity()));
+        pressureTextView.setText(String.format("%s", weather.getPressure()));
+        windSpeedTextView.setText(String.format("%s", weather.getWindSpeed()));
+        windDirectionTextView.setText(String.format("%s", weather.getWindDirection()));
+        cloudsTextView.setText(String.format("%s", weather.getClouds()));
     }
 
     private void initTextViews() {
@@ -117,7 +96,10 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.updateWeatherButton:
-                update();
+                initTextViews();
+                if (isTextViewInitialized() && getSelectedLocalization() != null && getSelectedWeather() != null) {
+                    updateTextViews(getSelectedWeather());
+                }
                 break;
         }
     }
@@ -127,7 +109,42 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
         super.onResume();
         localizationAdapter = new LocalizationAdapter(getContext(), android.R.layout.simple_spinner_item, AstroWeather.localizationList);
         localizationSpinner.setAdapter(localizationAdapter);
+
+        if (!isTextViewInitialized()) {
+            initTextViews();
+        }
     }
 
+    private void setListenerOnLocalizationSpinner() {
+        localizationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                List<Weather> weatherList = localizationAdapter.getItem(i).getWeathers();
+                for (int j = 0; j < weatherList.size() - 1; j++) {
+                    dateSpinnerAdapter = new WeatherAdapter(getContext(), android.R.layout.simple_spinner_item, weatherList);
+                    dateSpinner.setAdapter(dateSpinnerAdapter);
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void setListenerOnDateSpinner() {
+        dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Weather weather = dateSpinnerAdapter.getItem(i);
+                updateTextViews(weather);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
 }
