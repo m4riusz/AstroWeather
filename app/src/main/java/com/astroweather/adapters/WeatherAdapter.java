@@ -17,7 +17,7 @@ import java.util.List;
  * Created by mariusz on 24.05.16.
  */
 public class WeatherAdapter extends ArrayAdapter<Weather> {
-    public static final String DATE_FORMAT = "dd:MM:yyyy";
+    public static final String DATE_FORMAT = "dd:MM:yyyy HH:mm";
     private final Context context;
     private final List<Weather> weatherList;
 

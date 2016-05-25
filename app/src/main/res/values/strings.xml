@@ -34,4 +34,5 @@
     <string name="cloudness">Zachmurzenie:</string>
     <string name="add_localization_success">Dodano!</string>
     <string name="refresh">Odśwież</string>
+    <string name="add_localization_wait">Proszę czekać!</string>
 </resources>
