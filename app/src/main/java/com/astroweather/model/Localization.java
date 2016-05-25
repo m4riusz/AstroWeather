@@ -85,7 +85,7 @@ public class Localization implements Parcelable {
         parcel.writeString(name);
         parcel.writeDouble(longitude);
         parcel.writeDouble(latitude);
-        parcel.writeList(weathers);
+        parcel.writeTypedList(weathers);
     }
 
 }
