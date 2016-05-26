@@ -15,12 +15,14 @@ public class Localization implements Parcelable {
     private double longitude;
     private double latitude;
     private List<Weather> weathers;
+    private MeasureSystem measureSystem;
 
-    public Localization(String name, double longitude, double latitude, List<Weather> weathers) {
+    public Localization(String name, double longitude, double latitude, List<Weather> weathers, MeasureSystem measureSystem) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
         this.weathers = weathers;
+        this.measureSystem = measureSystem;
     }
 
 
@@ -29,6 +31,7 @@ public class Localization implements Parcelable {
         longitude = in.readDouble();
         latitude = in.readDouble();
         weathers = in.createTypedArrayList(Weather.CREATOR);
+        measureSystem = (MeasureSystem) in.readSerializable();
     }
 
     public static final Creator<Localization> CREATOR = new Creator<Localization>() {
@@ -75,6 +78,14 @@ public class Localization implements Parcelable {
         this.weathers = weathers;
     }
 
+    public MeasureSystem getMeasureSystem() {
+        return measureSystem;
+    }
+
+    public void setMeasureSystem(MeasureSystem measureSystem) {
+        this.measureSystem = measureSystem;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -86,6 +97,7 @@ public class Localization implements Parcelable {
         parcel.writeDouble(longitude);
         parcel.writeDouble(latitude);
         parcel.writeTypedList(weathers);
+        parcel.writeSerializable(measureSystem);
     }
 
 }
