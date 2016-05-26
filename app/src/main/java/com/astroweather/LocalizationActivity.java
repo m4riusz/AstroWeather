@@ -1,6 +1,9 @@
 package com.astroweather;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +46,10 @@ public class LocalizationActivity extends AppCompatActivity {
     }
 
     public void addNewLocalization(View view) {
+        if (!isOnline()) {
+            Toast.makeText(LocalizationActivity.this, R.string.ad_localization_no_internet_connection, Toast.LENGTH_SHORT).show();
+            return;
+        }
         try {
             String localizationName = String.valueOf(((EditText) findViewById(R.id.localizationNameValue)).getText());
             double longitudeVal = Double.parseDouble(((EditText) findViewById(R.id.localizationLongitudeValue)).getText().toString());
@@ -52,6 +59,12 @@ public class LocalizationActivity extends AppCompatActivity {
         } catch (Exception ex) {
             Toast.makeText(LocalizationActivity.this, R.string.add_localization_fail, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }
 
     private MeasureSystem getMeasureSystem() {
