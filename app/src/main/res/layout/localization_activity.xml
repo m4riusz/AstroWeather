@@ -73,6 +73,26 @@
             android:inputType="numberSigned|numberDecimal" />
     </LinearLayout>
 
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/metricSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/metric_system" />
+
+        <RadioButton
+            android:id="@+id/imperialSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/imperial_system" />
+    </RadioGroup>
+
     <Button
         android:id="@+id/addLocalizationButton"
         android:layout_width="wrap_content"
@@ -106,7 +126,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Zapisz"
+        android:text="@string/save"
         android:id="@+id/saveButton"
         android:layout_gravity="center_horizontal"
         android:onClick="saveAndExit" />
