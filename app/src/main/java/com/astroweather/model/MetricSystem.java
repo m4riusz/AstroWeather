@@ -7,6 +7,12 @@ public class MetricSystem extends MeasureSystem {
 
     public static final String METERS_PER_SECOND = "meters/sec";
     public static final String CELSIUS_SYMBOL = "C";
+    public static final String METRIC = "metric";
+
+    @Override
+    public String getName() {
+        return METRIC;
+    }
 
     @Override
     public String getTemperatureUnits() {

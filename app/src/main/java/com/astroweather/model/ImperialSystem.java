@@ -7,6 +7,12 @@ public class ImperialSystem extends MeasureSystem {
 
     public static final String MILES_PER_HOUR = "miles/hour";
     public static final String FAHRENHEIT_SYMBOL = "F";
+    public static final String IMPERIAL = "imperial";
+
+    @Override
+    public String getName() {
+        return IMPERIAL;
+    }
 
     @Override
     public String getTemperatureUnits() {
