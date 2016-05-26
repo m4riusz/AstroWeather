@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
     private TextView windSpeedTextView;
     private TextView windDirectionTextView;
     private TextView cloudsTextView;
+    private ImageView imageView;
     private Button upButton;
     private LocalizationAdapter localizationAdapter;
     private Spinner localizationSpinner;
@@ -79,6 +81,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
         windSpeedTextView.setText(String.format("%s %s", weather.getWindSpeed(), measureSystem.getWindSpeedUnits()));
         windDirectionTextView.setText(String.format("%s %s", weather.getWindDirection(), measureSystem.getWindDirectionUnits()));
         cloudsTextView.setText(String.format("%s %s", weather.getClouds(), measureSystem.getCloudUnits()));
+        imageView.setImageBitmap(weather.getBitmap());
     }
 
     private void initTextViews() {
@@ -88,10 +91,11 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
         windSpeedTextView = (TextView) getActivity().findViewById(R.id.windSpeedValue);
         windDirectionTextView = (TextView) getActivity().findViewById(R.id.windDirectionValue);
         cloudsTextView = (TextView) getActivity().findViewById(R.id.cloudsValue);
+        imageView = (ImageView) getActivity().findViewById(R.id.weatherIcon);
     }
 
     private boolean isTextViewInitialized() {
-        return (temperatureTextView != null && humidityTextView != null && pressureTextView != null && windSpeedTextView != null && windDirectionTextView != null && cloudsTextView != null);
+        return (temperatureTextView != null && humidityTextView != null && pressureTextView != null && windSpeedTextView != null && windDirectionTextView != null && cloudsTextView != null && imageView != null);
     }
 
     @Override

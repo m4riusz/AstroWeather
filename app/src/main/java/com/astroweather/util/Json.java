@@ -13,4 +13,6 @@ public class Json {
     public static final String WIND = "wind";
     public static final String CLOUDS = "clouds";
     public static final String PERCENTAGE = "all";
+    public static final String WEATHER = "weather";
+    public static final String ICON = "icon";
 }

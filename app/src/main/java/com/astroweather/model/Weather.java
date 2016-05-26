@@ -1,5 +1,6 @@
 package com.astroweather.model;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -17,8 +18,9 @@ public class Weather implements Parcelable,Serializable {
     private float windSpeed;
     private float windDirection;
     private float clouds;
+    private Bitmap bitmap;
 
-    public Weather(Date date, float temperature, float humidity, float pressure, float windSpeed, float windDirection, float clouds) {
+    public Weather(Date date, float temperature, float humidity, float pressure, float windSpeed, float windDirection, float clouds, Bitmap bitmap) {
         this.date = date;
         this.temperature = temperature;
         this.humidity = humidity;
@@ -26,7 +28,31 @@ public class Weather implements Parcelable,Serializable {
         this.windSpeed = windSpeed;
         this.windDirection = windDirection;
         this.clouds = clouds;
+        this.bitmap = bitmap;
     }
+
+
+    protected Weather(Parcel in) {
+        temperature = in.readFloat();
+        humidity = in.readFloat();
+        pressure = in.readFloat();
+        windSpeed = in.readFloat();
+        windDirection = in.readFloat();
+        clouds = in.readFloat();
+        bitmap = in.readParcelable(Bitmap.class.getClassLoader()); //TODO fix
+    }
+
+    public static final Creator<Weather> CREATOR = new Creator<Weather>() {
+        @Override
+        public Weather createFromParcel(Parcel in) {
+            return new Weather(in);
+        }
+
+        @Override
+        public Weather[] newArray(int size) {
+            return new Weather[size];
+        }
+    };
 
     public float getClouds() {
         return clouds;
@@ -84,27 +110,13 @@ public class Weather implements Parcelable,Serializable {
         this.date = date;
     }
 
-    protected Weather(Parcel in) {
-        date = new Date(in.readLong());
-        temperature = in.readFloat();
-        humidity = in.readFloat();
-        pressure = in.readFloat();
-        windSpeed = in.readFloat();
-        windDirection = in.readFloat();
-        clouds = in.readFloat();
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 
-    public static final Creator<Weather> CREATOR = new Creator<Weather>() {
-        @Override
-        public Weather createFromParcel(Parcel in) {
-            return new Weather(in);
-        }
-
-        @Override
-        public Weather[] newArray(int size) {
-            return new Weather[size];
-        }
-    };
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
 
     @Override
     public int describeContents() {
@@ -120,6 +132,7 @@ public class Weather implements Parcelable,Serializable {
         parcel.writeFloat(windSpeed);
         parcel.writeFloat(windDirection);
         parcel.writeFloat(clouds);
+        parcel.writeParcelable(bitmap, 0);
     }
 
     @Override
