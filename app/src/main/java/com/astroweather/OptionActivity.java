@@ -32,7 +32,7 @@ public class OptionActivity extends AppCompatActivity {
 
         longitudeValue.setText(String.format("%s", longitude));
         latitudeValue.setText(String.format("%s", latitude));
-        refreshRateValue.setText(refreshRate);
+        refreshRateValue.setText(String.format("%d", refreshRate));
     }
 
     public void saveAndExit(View view) {
