@@ -15,6 +15,7 @@ import com.astroweather.R;
 import com.astroweather.adapters.LocalizationAdapter;
 import com.astroweather.adapters.WeatherAdapter;
 import com.astroweather.model.Localization;
+import com.astroweather.model.MeasureSystem;
 import com.astroweather.model.Weather;
 import com.astroweather.util.AstroWeather;
 
@@ -70,13 +71,14 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
         return ((Weather) dateSpinner.getSelectedItem());
     }
 
-    public void updateTextViews(Weather weather) {
-        temperatureTextView.setText(String.format("%s", weather.getTemperature()));
-        humidityTextView.setText(String.format("%s", weather.getHumidity()));
-        pressureTextView.setText(String.format("%s", weather.getPressure()));
-        windSpeedTextView.setText(String.format("%s", weather.getWindSpeed()));
-        windDirectionTextView.setText(String.format("%s", weather.getWindDirection()));
-        cloudsTextView.setText(String.format("%s", weather.getClouds()));
+    public void updateTextViews(Weather weather, Localization localization) {
+        MeasureSystem measureSystem = localization.getMeasureSystem();
+        temperatureTextView.setText(String.format("%s %s", weather.getTemperature(), measureSystem.getTemperatureUnits()));
+        humidityTextView.setText(String.format("%s %s", weather.getHumidity(), measureSystem.getHumidityUnits()));
+        pressureTextView.setText(String.format("%s %s", weather.getPressure(), measureSystem.getPreasureUnits()));
+        windSpeedTextView.setText(String.format("%s %s", weather.getWindSpeed(), measureSystem.getWindSpeedUnits()));
+        windDirectionTextView.setText(String.format("%s %s", weather.getWindDirection(), measureSystem.getWindDirectionUnits()));
+        cloudsTextView.setText(String.format("%s %s", weather.getClouds(), measureSystem.getCloudUnits()));
     }
 
     private void initTextViews() {
@@ -98,7 +100,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
             case R.id.updateWeatherButton:
                 initTextViews();
                 if (isTextViewInitialized() && getSelectedLocalization() != null && getSelectedWeather() != null) {
-                    updateTextViews(getSelectedWeather());
+                    updateTextViews(getSelectedWeather(), getSelectedLocalization());
                 }
                 break;
         }
@@ -138,7 +140,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Weather weather = dateSpinnerAdapter.getItem(i);
-                updateTextViews(weather);
+                updateTextViews(weather, getSelectedLocalization());
             }
 
             @Override
