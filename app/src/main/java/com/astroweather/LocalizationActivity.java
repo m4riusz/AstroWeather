@@ -6,11 +6,15 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.astroweather.adapters.LocalizationAdapter;
+import com.astroweather.model.ImperialSystem;
 import com.astroweather.model.Localization;
+import com.astroweather.model.MeasureSystem;
+import com.astroweather.model.MetricSystem;
 import com.astroweather.util.AstroWeather;
 
 import java.util.ArrayList;
@@ -43,11 +47,19 @@ public class LocalizationActivity extends AppCompatActivity {
             String localizationName = String.valueOf(((EditText) findViewById(R.id.localizationNameValue)).getText());
             double longitudeVal = Double.parseDouble(((EditText) findViewById(R.id.localizationLongitudeValue)).getText().toString());
             double latitudeVal = Double.parseDouble(((EditText) findViewById(R.id.localizationLatitudeValue)).getText().toString());
-            new LocalizationTask(this, localizationName, favouriteLocalizations, adapter).execute(longitudeVal, latitudeVal);
+            new LocalizationTask(this, localizationName, favouriteLocalizations, adapter, getMeasureSystem()).execute(longitudeVal, latitudeVal);
 
         } catch (Exception ex) {
             Toast.makeText(LocalizationActivity.this, R.string.add_localization_fail, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private MeasureSystem getMeasureSystem() {
+        RadioButton metricSystem = (RadioButton) findViewById(R.id.metricSystem);
+        if (metricSystem.isChecked()) {
+            return new MetricSystem();
+        }
+        return new ImperialSystem();
     }
 
     public void saveAndExit(View view) {
