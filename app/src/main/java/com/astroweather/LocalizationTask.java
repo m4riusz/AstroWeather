@@ -6,7 +6,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.astroweather.model.Localization;
+import com.astroweather.model.MeasureSystem;
 import com.astroweather.model.Weather;
+import com.astroweather.util.AstroWeather;
 import com.astroweather.util.Json;
 
 import org.json.JSONArray;
@@ -30,20 +32,21 @@ import java.util.List;
  * Created by mariusz on 25.05.16.
  */
 public class LocalizationTask extends AsyncTask<Double, Void, Void> {
-    public static final String URL = "http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&appid={2}";
+    public static final String URL = "http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&appid={2}&units={3}";
     public static final String GET_METHOD = "GET";
 
-    private static String apiKey = "602e239bf31bef4b5de4da70e251b5d0";
     private Activity activity;
     private List<Localization> localizations;
     private ArrayAdapter adapter;
     private String localizationName;
+    private MeasureSystem measureSystem;
 
-    public LocalizationTask(Activity activity, String localizationName, List<Localization> localizationList, ArrayAdapter adapter) {
+    public LocalizationTask(Activity activity, String localizationName, List<Localization> localizationList, ArrayAdapter adapter, MeasureSystem measureSystem) {
         this.activity = activity;
         this.localizationName = localizationName;
         this.localizations = localizationList;
         this.adapter = adapter;
+        this.measureSystem = measureSystem;
     }
 
     @Override
@@ -56,9 +59,9 @@ public class LocalizationTask extends AsyncTask<Double, Void, Void> {
         Double latitude = doubles[1];
         Double longitude = doubles[0];
 
-        String url = MessageFormat.format(URL, latitude, longitude, apiKey);
+        String url = MessageFormat.format(URL, latitude, longitude, AstroWeather.apiKey, measureSystem.getName());
         try {
-            Localization localization = new Localization(localizationName, longitude, latitude, new ArrayList<Weather>());
+            Localization localization = new Localization(localizationName, longitude, latitude, new ArrayList<Weather>(), measureSystem);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Json.JSON_DATE_FORMAT);
             JSONObject response = getJSON(url);
 

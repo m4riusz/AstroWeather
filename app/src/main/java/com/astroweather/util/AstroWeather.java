@@ -25,4 +25,5 @@ public class AstroWeather {
     public static final String TIME_FORMAT = "dd MMMM yyyy HH:mm:ss";
     public static final String FAVOURITE_LOCALIZATIONS = "favouriteLocalizations";
     public static List<Localization> localizationList = new ArrayList<>();
+    public static String apiKey = "602e239bf31bef4b5de4da70e251b5d0";
 }
