@@ -1,6 +1,5 @@
 package com.astroweather.model;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -18,9 +17,9 @@ public class Weather implements Parcelable,Serializable {
     private float windSpeed;
     private float windDirection;
     private float clouds;
-    private Bitmap bitmap;
+    private String iconCode;
 
-    public Weather(Date date, float temperature, float humidity, float pressure, float windSpeed, float windDirection, float clouds, Bitmap bitmap) {
+    public Weather(Date date, float temperature, float humidity, float pressure, float windSpeed, float windDirection, float clouds, String iconCode) {
         this.date = date;
         this.temperature = temperature;
         this.humidity = humidity;
@@ -28,7 +27,7 @@ public class Weather implements Parcelable,Serializable {
         this.windSpeed = windSpeed;
         this.windDirection = windDirection;
         this.clouds = clouds;
-        this.bitmap = bitmap;
+        this.iconCode = iconCode;
     }
 
 
@@ -40,7 +39,7 @@ public class Weather implements Parcelable,Serializable {
         windSpeed = in.readFloat();
         windDirection = in.readFloat();
         clouds = in.readFloat();
-        bitmap = in.readParcelable(Bitmap.class.getClassLoader());
+        iconCode = in.readString();
     }
 
     public static final Creator<Weather> CREATOR = new Creator<Weather>() {
@@ -111,12 +110,12 @@ public class Weather implements Parcelable,Serializable {
         this.date = date;
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
+    public String getIconCode() {
+        return iconCode;
     }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
+    public void setIconCode(String iconCode) {
+        this.iconCode = iconCode;
     }
 
     @Override
@@ -133,7 +132,7 @@ public class Weather implements Parcelable,Serializable {
         parcel.writeFloat(windSpeed);
         parcel.writeFloat(windDirection);
         parcel.writeFloat(clouds);
-        parcel.writeParcelable(bitmap, 0);
+        parcel.writeString(iconCode);
     }
 
     @Override
@@ -146,6 +145,7 @@ public class Weather implements Parcelable,Serializable {
                 ", windSpeed=" + windSpeed +
                 ", windDirection=" + windDirection +
                 ", clouds=" + clouds +
+                ", iconCode='" + iconCode + '\'' +
                 '}';
     }
 }
