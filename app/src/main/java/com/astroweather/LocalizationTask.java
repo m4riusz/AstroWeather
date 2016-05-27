@@ -1,8 +1,6 @@
 package com.astroweather;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -17,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +33,6 @@ import java.util.List;
  */
 public class LocalizationTask extends AsyncTask<Double, Void, Void> {
     public static final String URL = "http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&appid={2}&units={3}";
-    public static final String IMAGE_URL = "http://openweathermap.org/img/w/";
     public static final String GET_METHOD = "GET";
     public static final String PNG = ".png";
 
@@ -96,7 +92,7 @@ public class LocalizationTask extends AsyncTask<Double, Void, Void> {
         float windDirection = (float) windInfo.getDouble(Json.DIRECTION);
         float clouds = cloudsInfo.getInt(Json.PERCENTAGE);
         String iconCOde = ((JSONObject) weatherInfo.get(0)).getString(Json.ICON) + PNG;
-        Weather weather = new Weather(date, temperature, humidity, pressure, windSpeed, windDirection, clouds, getImageBitmap(iconCOde));
+        Weather weather = new Weather(date, temperature, humidity, pressure, windSpeed, windDirection, clouds, iconCOde);
         return weather;
     }
 
@@ -115,25 +111,6 @@ public class LocalizationTask extends AsyncTask<Double, Void, Void> {
         inputStream.close();
         connection.disconnect();
         return new JSONObject(content.toString());
-    }
-
-    private Bitmap getImageBitmap(String iconCode) {
-        HttpURLConnection connection = null;
-        InputStream inputStream = null;
-        Bitmap bm = null;
-        try {
-            connection = (HttpURLConnection) new URL(IMAGE_URL + iconCode).openConnection();
-            connection.setUseCaches(true);
-            connection.connect();
-            inputStream = connection.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(inputStream);
-            bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            inputStream.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return bm;
     }
 
     @Override
