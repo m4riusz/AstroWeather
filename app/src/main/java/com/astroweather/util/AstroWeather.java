@@ -1,5 +1,7 @@
 package com.astroweather.util;
 
+import android.support.annotation.NonNull;
+
 import com.astrocalculator.AstroCalculator;
 import com.astroweather.model.Localization;
 
@@ -24,6 +26,12 @@ public class AstroWeather {
     public static final String REFRESH_RATE_TEXT = "refreshRate";
     public static final String TIME_FORMAT = "dd MMMM yyyy HH:mm:ss";
     public static final String FAVOURITE_LOCALIZATIONS = "favouriteLocalizations";
-    public static List<Localization> localizationList = new ArrayList<>();
+    public static List<Localization> localizationList = getLocalizations();
     public static String apiKey = "602e239bf31bef4b5de4da70e251b5d0";
+
+    private static ArrayList<Localization> getLocalizations() {
+
+        return new ArrayList<>();
+    }
+
 }
