@@ -1,11 +1,11 @@
 package com.astroweather.model;
 
-import java.io.Serializable;
+import android.os.Parcelable;
 
 /**
  * Created by mariusz on 26.05.16.
  */
-public abstract class MeasureSystem implements Serializable {
+public abstract class MeasureSystem implements Parcelable {
 
     public static final String PERCENT = "%";
     public static final String H_PA = "hPa";
@@ -21,7 +21,7 @@ public abstract class MeasureSystem implements Serializable {
         return PERCENT;
     }
 
-    public String getPreasureUnits() {
+    public String getPressureUnits() {
         return H_PA;
     }
 
