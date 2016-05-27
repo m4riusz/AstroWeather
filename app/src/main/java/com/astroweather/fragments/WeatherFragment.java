@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.astroweather.ImageTask;
+import com.astroweather.LocalizationTask;
 import com.astroweather.R;
 import com.astroweather.adapters.LocalizationAdapter;
 import com.astroweather.adapters.WeatherAdapter;
@@ -101,9 +102,12 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.updateWeatherButton:
-                initTextViews();
-                if (isTextViewInitialized() && getSelectedLocalization() != null && getSelectedWeather() != null) {
-                    updateTextViews(getSelectedWeather(), getSelectedLocalization());
+                if (getSelectedLocalization() != null && getSelectedWeather() != null) {
+                    Localization selectedLocalization = getSelectedLocalization();
+                    AstroWeather.localizationList.remove(selectedLocalization);
+                    new LocalizationTask(getActivity(), selectedLocalization.getName(), AstroWeather.localizationList,
+                            localizationAdapter, selectedLocalization.getMeasureSystem())
+                            .execute(selectedLocalization.getLongitude(), selectedLocalization.getLatitude());
                 }
                 break;
         }
