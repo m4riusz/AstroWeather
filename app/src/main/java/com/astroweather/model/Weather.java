@@ -33,13 +33,14 @@ public class Weather implements Parcelable,Serializable {
 
 
     protected Weather(Parcel in) {
+        date = new Date(in.readLong());
         temperature = in.readFloat();
         humidity = in.readFloat();
         pressure = in.readFloat();
         windSpeed = in.readFloat();
         windDirection = in.readFloat();
         clouds = in.readFloat();
-        bitmap = in.readParcelable(Bitmap.class.getClassLoader()); //TODO fix
+        bitmap = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public static final Creator<Weather> CREATOR = new Creator<Weather>() {

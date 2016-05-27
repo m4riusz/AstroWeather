@@ -31,7 +31,7 @@ public class Localization implements Parcelable {
         longitude = in.readDouble();
         latitude = in.readDouble();
         weathers = in.createTypedArrayList(Weather.CREATOR);
-        measureSystem = (MeasureSystem) in.readSerializable();
+        measureSystem = in.readParcelable(MeasureSystem.class.getClassLoader());
     }
 
     public static final Creator<Localization> CREATOR = new Creator<Localization>() {
@@ -97,7 +97,7 @@ public class Localization implements Parcelable {
         parcel.writeDouble(longitude);
         parcel.writeDouble(latitude);
         parcel.writeTypedList(weathers);
-        parcel.writeSerializable(measureSystem);
+        parcel.writeParcelable(measureSystem, i);
     }
 
 }
