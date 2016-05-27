@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.astroweather.ImageTask;
 import com.astroweather.R;
 import com.astroweather.adapters.LocalizationAdapter;
 import com.astroweather.adapters.WeatherAdapter;
@@ -80,7 +81,6 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
         windSpeedTextView.setText(String.format("%s %s", weather.getWindSpeed(), measureSystem.getWindSpeedUnits()));
         windDirectionTextView.setText(String.format("%s %s", weather.getWindDirection(), measureSystem.getWindDirectionUnits()));
         cloudsTextView.setText(String.format("%s %s", weather.getClouds(), measureSystem.getCloudUnits()));
-        imageView.setImageBitmap(weather.getBitmap());
     }
 
     private void initTextViews() {
@@ -143,6 +143,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Weather weather = dateSpinnerAdapter.getItem(i);
+                new ImageTask(imageView).execute(weather.getIconCode());
                 updateTextViews(weather, getSelectedLocalization());
             }
 
