@@ -36,7 +36,6 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
     private TextView windDirectionTextView;
     private TextView cloudsTextView;
     private ImageView imageView;
-    private Button upButton;
     private LocalizationAdapter localizationAdapter;
     private Spinner localizationSpinner;
     private Spinner dateSpinner;
@@ -46,7 +45,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.weather_fragment_layout, container, false);
-        upButton = (Button) inflate.findViewById(R.id.updateWeatherButton);
+        Button upButton = (Button) inflate.findViewById(R.id.updateWeatherButton);
         upButton.setOnClickListener(this);
         initTextViews();
         initSpinnersAndAdapters(inflate);
@@ -77,7 +76,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
         MeasureSystem measureSystem = localization.getMeasureSystem();
         temperatureTextView.setText(String.format("%s %s", weather.getTemperature(), measureSystem.getTemperatureUnits()));
         humidityTextView.setText(String.format("%s %s", weather.getHumidity(), measureSystem.getHumidityUnits()));
-        pressureTextView.setText(String.format("%s %s", weather.getPressure(), measureSystem.getPreasureUnits()));
+        pressureTextView.setText(String.format("%s %s", weather.getPressure(), measureSystem.getPressureUnits()));
         windSpeedTextView.setText(String.format("%s %s", weather.getWindSpeed(), measureSystem.getWindSpeedUnits()));
         windDirectionTextView.setText(String.format("%s %s", weather.getWindDirection(), measureSystem.getWindDirectionUnits()));
         cloudsTextView.setText(String.format("%s %s", weather.getClouds(), measureSystem.getCloudUnits()));
