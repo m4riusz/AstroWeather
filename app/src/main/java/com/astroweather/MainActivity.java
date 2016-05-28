@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -18,10 +19,17 @@ import com.astroweather.fragments.WeatherFragment;
 import com.astroweather.model.Localization;
 import com.astroweather.util.AstroWeather;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private GregorianCalendar calendar = new GregorianCalendar();
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(AstroWeather.TIME_FORMAT);
     private TextView textView;
-    private ArrayList<Localization> favouriteLocalizations = new ArrayList<>();
+    private ArrayList<Localization> favouriteLocalizations;
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
         public void run() {
@@ -42,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (favouriteLocalizations == null) {
+            favouriteLocalizations = (ArrayList<Localization>) loadFromFile();
+            AstroWeather.localizationList = favouriteLocalizations;
+        }
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.timeValue);
         runnable.run();
@@ -104,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
-
     }
 
     @Override
@@ -144,5 +155,44 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveToFile(AstroWeather.localizationList);
+    }
+
+    private void saveToFile(List<Localization> localizationList) {
+        FileOutputStream fos = null;
+        try {
+            File file = new File(getCacheDir() + File.separator + AstroWeather.LOCALIZATION_FILE_NAME);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(localizationList);
+            oos.close();
+        } catch (IOException e) {
+            Log.e(AstroWeather.APP_TAG, e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private List<Localization> loadFromFile() {
+        FileInputStream fileInputStream = null;
+        try {
+            File file = new File(getCacheDir() + File.separator + AstroWeather.LOCALIZATION_FILE_NAME);
+            fileInputStream = new FileInputStream(file);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            List<Localization> localizationList = (List<Localization>) objectInputStream.readObject();
+            objectInputStream.close();
+            return localizationList;
+        } catch (ClassNotFoundException | IOException e) {
+            Log.e(AstroWeather.APP_TAG, e.getMessage());
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 }
