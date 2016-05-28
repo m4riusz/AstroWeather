@@ -3,13 +3,13 @@ package com.astroweather.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by mariusz on 20.05.16.
  */
-public class Localization implements Parcelable {
-
+public class Localization implements Parcelable, Serializable {
 
     private String name;
     private double longitude;

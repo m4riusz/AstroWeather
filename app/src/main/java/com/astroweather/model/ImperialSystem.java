@@ -2,10 +2,12 @@ package com.astroweather.model;
 
 import android.os.Parcel;
 
+import java.io.Serializable;
+
 /**
  * Created by mariusz on 26.05.16.
  */
-public class ImperialSystem extends MeasureSystem {
+public class ImperialSystem extends MeasureSystem implements Serializable {
 
     public static final String MILES_PER_HOUR = "miles/hour";
     public static final String FAHRENHEIT_SYMBOL = "F";

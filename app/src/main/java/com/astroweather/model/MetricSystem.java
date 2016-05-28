@@ -2,10 +2,12 @@ package com.astroweather.model;
 
 import android.os.Parcel;
 
+import java.io.Serializable;
+
 /**
  * Created by mariusz on 26.05.16.
  */
-public class MetricSystem extends MeasureSystem {
+public class MetricSystem extends MeasureSystem implements Serializable{
 
     public static final String METERS_PER_SECOND = "meters/sec";
     public static final String CELSIUS_SYMBOL = "C";
