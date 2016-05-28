@@ -1,5 +1,9 @@
 package com.astroweather.util;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.astrocalculator.AstroCalculator;
 import com.astroweather.model.Localization;
 
@@ -29,4 +33,9 @@ public class AstroWeather {
     public static List<Localization> localizationList = new ArrayList<>();
     public static String apiKey = "602e239bf31bef4b5de4da70e251b5d0";
 
+    public static boolean isOnline(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnectedOrConnecting();
+    }
 }
