@@ -1,11 +1,16 @@
 package com.astroweather;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
+import com.astroweather.util.Json;
+
 import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -14,7 +19,7 @@ import java.net.URL;
  * Created by mariusz on 27.05.16.
  */
 public class ImageTask extends AsyncTask<String, Void, Void> {
-    public static final String IMAGE_URL = "http://openweathermap.org/img/w/";
+
     private ImageView imageView;
     private Bitmap bitmap;
 
@@ -29,19 +34,27 @@ public class ImageTask extends AsyncTask<String, Void, Void> {
             InputStream inputStream = null;
             bitmap = null;
             try {
-                connection = (HttpURLConnection) new URL(IMAGE_URL + iconCode).openConnection();
-                connection.setUseCaches(true);
-                connection.connect();
+                connection = getHttpURLConnection(Json.IMAGE_URL + iconCode);
                 inputStream = connection.getInputStream();
                 BufferedInputStream bis = new BufferedInputStream(inputStream);
                 bitmap = BitmapFactory.decodeStream(bis);
                 bis.close();
                 inputStream.close();
             } catch (Exception ex) {
+                bitmap = BitmapFactory.decodeResource(Resources.getSystem(), android.R.drawable.stat_notify_error);
                 ex.printStackTrace();
             }
         }
         return null;
+    }
+
+    @NonNull
+    private HttpURLConnection getHttpURLConnection(String requestUrl) throws IOException {
+        HttpURLConnection connection;
+        connection = (HttpURLConnection) new URL(requestUrl).openConnection();
+        connection.setUseCaches(true);
+        connection.connect();
+        return connection;
     }
 
     @Override

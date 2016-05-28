@@ -15,26 +15,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * Created by mariusz on 25.05.16.
  */
 public class LocalizationTask extends AsyncTask<Double, Void, Void> {
-    public static final String URL = "http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&appid={2}&units={3}";
-    public static final String GET_METHOD = "GET";
-    public static final String PNG = ".png";
 
     private Activity activity;
     private List<Localization> localizations;
@@ -60,57 +51,22 @@ public class LocalizationTask extends AsyncTask<Double, Void, Void> {
         Double latitude = doubles[1];
         Double longitude = doubles[0];
 
-        String url = MessageFormat.format(URL, latitude, longitude, AstroWeather.apiKey, measureSystem.getName());
+        String url = MessageFormat.format(Json.URL, latitude, longitude, AstroWeather.apiKey, measureSystem.getName());
         try {
             Localization localization = new Localization(localizationName, longitude, latitude, new ArrayList<Weather>(), measureSystem);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Json.JSON_DATE_FORMAT);
-            JSONObject response = getJSON(url);
+            JSONObject response = Json.getJSON(url);
 
             JSONArray weathers = response.getJSONArray(Json.WEATHER_LIST);
             for (int weatherIndex = 0; weatherIndex < weathers.length(); weatherIndex++) {
-                Weather weather = parseWeather(simpleDateFormat, weathers.getJSONObject(weatherIndex));
+                Weather weather = Json.parseWeather(simpleDateFormat, weathers.getJSONObject(weatherIndex));
                 localization.getWeathers().add(weather);
             }
             localizations.add(localization);
         } catch (ParseException | IOException | JSONException e) {
-            Toast.makeText(activity.getApplicationContext(), R.string.add_localization_fail, Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         return null;
-    }
-
-    private Weather parseWeather(SimpleDateFormat simpleDateFormat, JSONObject weatherJSON) throws JSONException, ParseException {
-        JSONObject cloudsInfo = weatherJSON.getJSONObject(Json.CLOUDS);
-        JSONObject basicInfo = weatherJSON.getJSONObject(Json.BASIC);
-        JSONObject windInfo = weatherJSON.getJSONObject(Json.WIND);
-        JSONArray weatherInfo = weatherJSON.getJSONArray(Json.WEATHER);
-        Date date = simpleDateFormat.parse(weatherJSON.getString(Json.DATE_STRING));
-        float temperature = (float) basicInfo.getDouble(Json.TEMPERATURE);
-        float humidity = (float) basicInfo.getDouble(Json.HUMIDITY);
-        float pressure = (float) basicInfo.getDouble(Json.PRESSURE);
-        float windSpeed = (float) windInfo.getDouble(Json.SPEED);
-        float windDirection = (float) windInfo.getDouble(Json.DIRECTION);
-        float clouds = cloudsInfo.getInt(Json.PERCENTAGE);
-        String iconCOde = ((JSONObject) weatherInfo.get(0)).getString(Json.ICON) + PNG;
-        Weather weather = new Weather(date, temperature, humidity, pressure, windSpeed, windDirection, clouds, iconCOde);
-        return weather;
-    }
-
-    private JSONObject getJSON(String url) throws IOException, JSONException {
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.setRequestMethod(GET_METHOD);
-        connection.connect();
-        InputStream inputStream = connection.getInputStream();
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuffer content = new StringBuffer();
-        String line = null;
-
-        while ((line = buffer.readLine()) != null) {
-            content.append(line);
-        }
-        inputStream.close();
-        connection.disconnect();
-        return new JSONObject(content.toString());
     }
 
     @Override

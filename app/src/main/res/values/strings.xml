@@ -38,5 +38,7 @@
     <string name="metric_system">system metryczny</string>
     <string name="imperial_system">system imperialny</string>
     <string name="save">Zapisz</string>
-    <string name="ad_localization_no_internet_connection">Sprawdź swoje połączenie internetowe!</string>
+    <string name="add_localization_no_internet_connection">Sprawdź swoje połączenie internetowe!</string>
+    <string name="update_data_no_internet">Nie pobrać aktualnych danych! Sprawdz połączenie internetowe!</string>
+    <string name="update_data_downloading">Pobieram aktualne informacje!</string>
 </resources>

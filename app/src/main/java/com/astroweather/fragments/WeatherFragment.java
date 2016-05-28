@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astroweather.ImageTask;
 import com.astroweather.LocalizationTask;
@@ -104,10 +105,14 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
             case R.id.updateWeatherButton:
                 if (getSelectedLocalization() != null && getSelectedWeather() != null) {
                     Localization selectedLocalization = getSelectedLocalization();
-                    AstroWeather.localizationList.remove(selectedLocalization);
-                    new LocalizationTask(getActivity(), selectedLocalization.getName(), AstroWeather.localizationList,
-                            localizationAdapter, selectedLocalization.getMeasureSystem())
-                            .execute(selectedLocalization.getLongitude(), selectedLocalization.getLatitude());
+                    if (AstroWeather.isOnline(getContext())) {
+                        AstroWeather.localizationList.remove(selectedLocalization);
+                        new LocalizationTask(getActivity(), selectedLocalization.getName(), AstroWeather.localizationList,
+                                localizationAdapter, selectedLocalization.getMeasureSystem())
+                                .execute(selectedLocalization.getLongitude(), selectedLocalization.getLatitude());
+                    } else {
+                        Toast.makeText(getContext(), R.string.add_localization_no_internet_connection, Toast.LENGTH_LONG).show();
+                    }
                 }
                 break;
         }

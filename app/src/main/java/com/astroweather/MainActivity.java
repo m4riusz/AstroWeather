@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astroweather.adapters.FragmentAdapter;
 import com.astroweather.fragments.MoonFragment;
@@ -50,14 +51,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (favouriteLocalizations == null) {
-            favouriteLocalizations = (ArrayList<Localization>) loadFromFile();
-            AstroWeather.localizationList = favouriteLocalizations;
+        if (isFirstTimeStarted(savedInstanceState)) {
+            initializeLocalizations();
         }
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.timeValue);
         runnable.run();
         determineScreenType();
+    }
+
+    private void initializeLocalizations() {
+        favouriteLocalizations = (ArrayList<Localization>) loadFromFile();
+        AstroWeather.localizationList = favouriteLocalizations;
+        if (AstroWeather.isOnline(this)) {
+            Toast.makeText(this, R.string.update_data_downloading, Toast.LENGTH_LONG).show();
+            new UpdateLocalizationTask(AstroWeather.localizationList, favouriteLocalizations).execute(favouriteLocalizations);
+            saveToFile(favouriteLocalizations);
+            return;
+        }
+        Toast.makeText(this, R.string.update_data_no_internet, Toast.LENGTH_LONG).show();
+    }
+
+    private boolean isFirstTimeStarted(Bundle savedInstanceState) {
+        return savedInstanceState == null;
     }
 
     @Override
@@ -153,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.replace(R.id.moon_fragment, new MoonFragment());
             fragmentTransaction.replace(R.id.weather_fragment, new WeatherFragment());
             fragmentTransaction.commit();
-
         }
     }
 
@@ -164,18 +179,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveToFile(List<Localization> localizationList) {
-        FileOutputStream fos = null;
+        FileOutputStream fileOutputStream = null;
         try {
             File file = new File(getCacheDir() + File.separator + AstroWeather.LOCALIZATION_FILE_NAME);
-            if (!file.exists()) {
-                file.createNewFile();
+            if (file.exists()) {
+                file.delete();
             }
-            fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(localizationList);
-            oos.close();
+            file.createNewFile();
+            fileOutputStream = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(localizationList);
+            objectOutputStream.close();
         } catch (IOException e) {
-            Log.e(AstroWeather.APP_TAG, e.getMessage());
+            Log.e(AstroWeather.APP_TAG, e.toString());
             e.printStackTrace();
         }
     }
@@ -184,13 +200,16 @@ public class MainActivity extends AppCompatActivity {
         FileInputStream fileInputStream = null;
         try {
             File file = new File(getCacheDir() + File.separator + AstroWeather.LOCALIZATION_FILE_NAME);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             fileInputStream = new FileInputStream(file);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             List<Localization> localizationList = (List<Localization>) objectInputStream.readObject();
             objectInputStream.close();
             return localizationList;
         } catch (ClassNotFoundException | IOException e) {
-            Log.e(AstroWeather.APP_TAG, e.getMessage());
+            Log.e(AstroWeather.APP_TAG, e.toString());
             e.printStackTrace();
         }
         return new ArrayList<>();
