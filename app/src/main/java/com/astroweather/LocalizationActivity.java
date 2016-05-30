@@ -51,7 +51,7 @@ public class LocalizationActivity extends AppCompatActivity {
             String localizationName = String.valueOf(((EditText) findViewById(R.id.localizationNameValue)).getText());
             double longitudeVal = Double.parseDouble(((EditText) findViewById(R.id.localizationLongitudeValue)).getText().toString());
             double latitudeVal = Double.parseDouble(((EditText) findViewById(R.id.localizationLatitudeValue)).getText().toString());
-            new LocalizationTask(this, localizationName, favouriteLocalizations, adapter, getMeasureSystem()).execute(longitudeVal, latitudeVal);
+            new LocalizationByPositionsTask(this, localizationName, favouriteLocalizations, adapter, getMeasureSystem()).execute(longitudeVal, latitudeVal);
 
         } catch (Exception ex) {
             Toast.makeText(LocalizationActivity.this, R.string.add_localization_fail, Toast.LENGTH_SHORT).show();

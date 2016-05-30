@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by mariusz on 25.05.16.
  */
-public class LocalizationTask extends AsyncTask<Double, Void, Void> {
+public class LocalizationByPositionsTask extends AsyncTask<Double, Void, Void> {
 
     private Activity activity;
     private List<Localization> localizations;
@@ -33,7 +33,7 @@ public class LocalizationTask extends AsyncTask<Double, Void, Void> {
     private String localizationName;
     private MeasureSystem measureSystem;
 
-    public LocalizationTask(Activity activity, String localizationName, List<Localization> localizationList, ArrayAdapter adapter, MeasureSystem measureSystem) {
+    public LocalizationByPositionsTask(Activity activity, String localizationName, List<Localization> localizationList, ArrayAdapter adapter, MeasureSystem measureSystem) {
         this.activity = activity;
         this.localizationName = localizationName;
         this.localizations = localizationList;

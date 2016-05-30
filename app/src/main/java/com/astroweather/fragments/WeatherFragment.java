@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astroweather.ImageTask;
-import com.astroweather.LocalizationTask;
+import com.astroweather.LocalizationByPositionsTask;
 import com.astroweather.R;
 import com.astroweather.adapters.LocalizationAdapter;
 import com.astroweather.adapters.WeatherAdapter;
@@ -107,7 +107,7 @@ public class WeatherFragment extends Fragment implements View.OnClickListener {
                     Localization selectedLocalization = getSelectedLocalization();
                     if (AstroWeather.isOnline(getContext())) {
                         AstroWeather.localizationList.remove(selectedLocalization);
-                        new LocalizationTask(getActivity(), selectedLocalization.getName(), AstroWeather.localizationList,
+                        new LocalizationByPositionsTask(getActivity(), selectedLocalization.getName(), AstroWeather.localizationList,
                                 localizationAdapter, selectedLocalization.getMeasureSystem())
                                 .execute(selectedLocalization.getLongitude(), selectedLocalization.getLatitude());
                     } else {
