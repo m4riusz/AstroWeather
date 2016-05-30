@@ -73,9 +73,17 @@ public class LocalizationByNameTask extends AsyncTask<String, Void, Void> {
         JSONObject cityObject = response.getJSONObject(Json.CITY);
         JSONObject coord = cityObject.getJSONObject(Json.COORD);
         double latitude = coord.getDouble(Json.LATITUDE);
+        latitude = round(latitude);
         double longitude = coord.getDouble(Json.LONGITUDE);
+        longitude = round(longitude);
+
         localization.setLatitude(latitude);
         localization.setLongitude(longitude);
+    }
+
+    private double round(double latitude) {
+        latitude = Math.ceil(latitude * 100);
+        return latitude / 100;
     }
 
     @Override
