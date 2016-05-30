@@ -17,7 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Json {
-    public static final String URL = "http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&appid={2}&units={3}";
+    public static final String URL_BY_POSITION = "http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&appid={2}&units={3}";
+    public static final String URL_BY_NAME = "http://api.openweathermap.org/data/2.5/forecast?q={0}&appid={1}&units={2}";
     public static final String GET_METHOD = "GET";
     public static final String PNG = ".png";
     public static final String IMAGE_URL = "http://openweathermap.org/img/w/";
@@ -35,6 +36,11 @@ public class Json {
     public static final String PERCENTAGE = "all";
     public static final String WEATHER = "weather";
     public static final String ICON = "icon";
+    public static final String CITY = "city";
+    public static final String COORD = "coord";
+    public static final String LATITUDE = "lat";
+    public static final String LONGITUDE = "lon";
+
 
     public static Weather parseWeather(SimpleDateFormat simpleDateFormat, JSONObject weatherJSON) throws JSONException, ParseException {
         JSONObject cloudsInfo = weatherJSON.getJSONObject(CLOUDS);

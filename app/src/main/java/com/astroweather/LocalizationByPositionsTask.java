@@ -51,7 +51,7 @@ public class LocalizationByPositionsTask extends AsyncTask<Double, Void, Void> {
         Double latitude = doubles[1];
         Double longitude = doubles[0];
 
-        String url = MessageFormat.format(Json.URL, latitude, longitude, AstroWeather.apiKey, measureSystem.getName());
+        String url = MessageFormat.format(Json.URL_BY_POSITION, latitude, longitude, AstroWeather.apiKey, measureSystem.getName());
         try {
             Localization localization = new Localization(localizationName, longitude, latitude, new ArrayList<Weather>(), measureSystem);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Json.JSON_DATE_FORMAT);

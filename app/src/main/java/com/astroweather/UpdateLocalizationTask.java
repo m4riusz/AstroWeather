@@ -36,7 +36,7 @@ public class UpdateLocalizationTask extends AsyncTask<List<Localization>, Void, 
 
         for (Localization localization : localizations[0]) {
             localization.getWeathers().clear();
-            String url = MessageFormat.format(Json.URL, localization.getLatitude(), localization.getLongitude(), AstroWeather.apiKey, localization.getMeasureSystem().getName());
+            String url = MessageFormat.format(Json.URL_BY_POSITION, localization.getLatitude(), localization.getLongitude(), AstroWeather.apiKey, localization.getMeasureSystem().getName());
             try {
                 JSONObject response = Json.getJSON(url);
                 JSONArray weathers = response.getJSONArray(Json.WEATHER_LIST);

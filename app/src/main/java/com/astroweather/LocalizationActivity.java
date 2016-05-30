@@ -49,8 +49,15 @@ public class LocalizationActivity extends AppCompatActivity {
         }
         try {
             String localizationName = String.valueOf(((EditText) findViewById(R.id.localizationNameValue)).getText());
-            double longitudeVal = Double.parseDouble(((EditText) findViewById(R.id.localizationLongitudeValue)).getText().toString());
-            double latitudeVal = Double.parseDouble(((EditText) findViewById(R.id.localizationLatitudeValue)).getText().toString());
+            String longitudeText = ((EditText) findViewById(R.id.localizationLongitudeValue)).getText().toString();
+            String latitudeText = ((EditText) findViewById(R.id.localizationLatitudeValue)).getText().toString();
+
+            if (!localizationName.equals("") && longitudeText.equals("") && latitudeText.equals("")) {
+                new LocalizationByNameTask(this, localizationName, favouriteLocalizations, adapter, getMeasureSystem()).execute(localizationName);
+                return;
+            }
+            double longitudeVal = Double.parseDouble(longitudeText);
+            double latitudeVal = Double.parseDouble(latitudeText);
             new LocalizationByPositionsTask(this, localizationName, favouriteLocalizations, adapter, getMeasureSystem()).execute(longitudeVal, latitudeVal);
 
         } catch (Exception ex) {
