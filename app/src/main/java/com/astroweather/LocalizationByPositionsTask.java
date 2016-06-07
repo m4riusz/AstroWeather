@@ -65,8 +65,14 @@ public class LocalizationByPositionsTask extends AsyncTask<Double, Void, Void> {
             localizations.add(localization);
         } catch (ParseException | IOException | JSONException e) {
             e.printStackTrace();
+            cancel(true);
         }
         return null;
+    }
+
+    @Override
+    protected void onCancelled(Void aVoid) {
+        Toast.makeText(activity, R.string.localization_not_found_error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

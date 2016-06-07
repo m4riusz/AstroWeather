@@ -64,9 +64,15 @@ public class LocalizationByNameTask extends AsyncTask<String, Void, Void> {
                 localizations.add(localization);
             } catch (ParseException | IOException | JSONException e) {
                 e.printStackTrace();
+                cancel(true);
             }
         }
         return null;
+    }
+
+    @Override
+    protected void onCancelled(Void aVoid) {
+        Toast.makeText(activity, R.string.localization_not_found_error, Toast.LENGTH_SHORT).show();
     }
 
     private void setLocalizationPosition(Localization localization, JSONObject response) throws JSONException {
@@ -81,9 +87,8 @@ public class LocalizationByNameTask extends AsyncTask<String, Void, Void> {
         localization.setLongitude(longitude);
     }
 
-    private double round(double latitude) {
-        latitude = Math.ceil(latitude * 100);
-        return latitude / 100;
+    private double round(double value) {
+        return Math.ceil(value * 100) / 100;
     }
 
     @Override
